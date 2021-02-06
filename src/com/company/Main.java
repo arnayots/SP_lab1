@@ -9,8 +9,18 @@ public class Main {
         try (FileReader reader = new FileReader("test.txt"))
         {
             int c;
-            while ((c=reader.read()) != -1) {
-                System.out.print((char) c);
+            String word = "";
+            while ((c=reader.read()) != -1)
+            {
+                int tmp1 = (int) c;
+                if(tmp1 >= 65 && tmp1 <= 90){
+                    word += (char) c;
+                    System.out.println("Symbol " + c + " added to " + word);
+                } else {
+                    //if(word != "")
+                        System.out.println(word);
+                    word = "";
+                }
             }
         }
         catch (IOException ex){
