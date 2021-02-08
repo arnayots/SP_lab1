@@ -5,8 +5,8 @@ import java.util.TreeSet;
 
 public class Main {
     public static int MaxWordLenght = 28;
-    public static String FileNameInput = "input.txt";
-    public static String FileNameOut = "out.txt";
+    public static String FileNameInput = "input2.txt";
+    public static String FileNameOut = "out2.txt";
 
     public static void main(String[] args) {
         try {
@@ -27,15 +27,26 @@ public class Main {
             String word = "";
             while ((c = fileIn.read()) != -1)
             {
-                if((c >= 65 && c <= 90) || (c >= 97 && c <= 122)){
-                    if(c <= 90)
+                if((c >= 65 && c <= 90) || (c >= 97 && c <= 122) || (c == 45) || (c == 39)){
+                    if(c >= 65 && c <= 90)
                         c += 32;
                     word += (char) c;
                 } else {
                     if(word.length() > MaxWordLenght)
                         word = word.substring(0, MaxWordLenght);
-                    if(word != "")
+                    if(word != "") {
+                        int len = word.length();
+                        int beg = 0;
+                        char[] tmp = new char[len];
+                        for (int i = 0; i < len; i++)
+                            tmp[i] = word.charAt(i);
+                        while((beg < len) && (tmp[beg] == '\'' || tmp[beg] == '-' ))
+                            beg++;
+                        while((beg < len) && (tmp[len - 1] == '\'' || tmp[len - 1] == '-' ))
+                            len--;
+                        word = word.substring(beg, len);
                         dictionary.add(word);
+                    }
                     word = "";
                 }
             }
